@@ -4,22 +4,29 @@ from collections import defaultdict
 #Depth First Search Algo
 #https://favtutor.com/blogs/depth-first-search-python explains it well
 
-def dfs(u, visited, graph):
-    visited[u] = True
-    for v, direction in graph[u]:
+#DFS Parameters (node, visited node, graph input)
+def dfs(node, visited, graph):
+    #redundancy check visted[node]
+    visited[node] = True
+    #for every v and direction in graph set [type will be dict]
+    for v, direction in graph[node]:
         if not visited[v]:
             if direction == 0:
                 direction = 1
             dfs(v, visited, graph)
-            print(u, v, direction)
+            print(node, v, direction)
 
 def main():
+    #first input n and m are for intersections and streets, this input controls them
     n, m = map(int, input().split())
 
     # Create graph
     graph = defaultdict(list)
     two_way_streets = []
 
+
+    #Optimzation oppurtunity, the code is specified to not care how many times the loop is run
+    # but by using "_", we can say the code just needs to run an unspecified amount of times
     for _ in range(m):
         a, b, c = map(int, input().split())
         if c == 1:
